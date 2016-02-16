@@ -7,7 +7,12 @@
 
     <cache type="org.mybatis.caches.ignite.IgniteCacheAdapter" />
 
-    <select id="getUser" parameterType="String" resultType="com.blu.ignite.dto.User">
+    <select id="getUser" parameterType="String" resultType="com.blu.ignite.dto.User" useCache="true">
       SELECT * FROM users WHERE id = #{id}
     </select>
+
+    <select id="getUniqueJob" parameterType="String" resultType="String" useCache="false">
+        select unique job from emp order by job desc
+    </select>
+
 </mapper>

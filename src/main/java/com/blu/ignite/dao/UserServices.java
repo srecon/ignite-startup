@@ -4,6 +4,8 @@ import com.blu.ignite.dto.User;
 import com.blu.ignite.mapper.UserMapper;
 import org.springframework.cache.annotation.Cacheable;
 
+import java.util.List;
+
 /**
  * Created by shamim on 16/02/16.
  */
@@ -23,5 +25,8 @@ public class UserServices {
     }
     public User getUser(String id){
         return userMapper.getUser(id);
+    }
+    public List<String> getUniqueJobs(){
+        return userMapper.getUniqueJob();
     }
 }

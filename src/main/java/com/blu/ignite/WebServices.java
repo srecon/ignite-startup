@@ -5,6 +5,7 @@ import com.blu.ignite.dto.User;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import java.util.List;
 
 /**
  * Created by shamim on 14/02/16.
@@ -15,10 +16,14 @@ import javax.jws.WebService;
 public class WebServices {
     private UserServices userServices;
 
-    @WebMethod(operationName = "uftpRules")
-    public String sayHello(String str){
-        User user = userServices.getUser(str);
+    @WebMethod(operationName = "getUserName")
+    public String getUserName(String userId){
+        User user = userServices.getUser(userId);
         return user.getuName();
+    }
+    @WebMethod(operationName = "getUniqueJobs")
+    public List<String> getUniqueJobs(){
+        return userServices.getUniqueJobs();
     }
     @WebMethod(exclude = true)
     public void setDao(UserServices userServices){
