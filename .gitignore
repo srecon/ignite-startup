@@ -3,3 +3,5 @@ ignite-test.iml
 ignite-test.iws
 ignite-test.ipr
 .idea
+.idea/vcs.xml
+.idea/workspace.xml
