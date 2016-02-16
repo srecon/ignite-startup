@@ -1,8 +1,6 @@
-package com.blu.ignite.dao;
+package com.blu.ignite.mapper;
 
 import com.blu.ignite.dto.User;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 /**
  * Created by shamim on 15/02/16.

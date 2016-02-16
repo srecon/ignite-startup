@@ -10,13 +10,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Created by shamim on 10/02/16.
  */
-public class SpringRun {
+public class SpringIgniteRun {
     public static void main(String[] args) throws Exception{
         System.out.println("Run Spring example!!");
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-core.xml");
-        Hello helloBean=  (Hello)ctx.getBean("helloBean");
-        helloBean.setStr("hello world");
-        System.out.println("Say:"+helloBean.getStr());
+
         // test Ignite
         IgniteConfiguration igniteConfiguration = (IgniteConfiguration) ctx.getBean("ignite.cfg");
         Ignite ignite = Ignition.start(igniteConfiguration);

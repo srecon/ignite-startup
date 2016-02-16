@@ -14,7 +14,7 @@ import java.util.Arrays;
 /**
  * Created by shamim on 09/02/16.
  */
-public class Test {
+public class IgniteWithoutSpringRun {
     public static void main(String[] args) throws Exception{
         System.out.println("Test Ignite!!");
         String cacheId = "partitioned";

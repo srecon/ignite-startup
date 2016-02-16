@@ -1,8 +1,7 @@
 package com.blu.ignite;
 
-import com.blu.ignite.dao.UserMapper;
+import com.blu.ignite.dao.UserServices;
 import com.blu.ignite.dto.User;
-import org.springframework.cache.annotation.Cacheable;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -13,18 +12,17 @@ import javax.jws.WebService;
 @WebService(name = "BusinessRulesServices",
         serviceName="BusinessRulesServices",
         targetNamespace = "http://com.blu.rules/services")
-public class Services{
-    private DAO dao;
+public class WebServices {
+    private UserServices userServices;
 
     @WebMethod(operationName = "uftpRules")
     public String sayHello(String str){
-        //return dao.sayhello (str);
-        User user = dao.getUser(str);
+        User user = userServices.getUser(str);
         return user.getuName();
     }
     @WebMethod(exclude = true)
-    public void setDao(DAO dao){
-        this.dao = dao;
+    public void setDao(UserServices userServices){
+        this.userServices = userServices;
     }
 
 }
