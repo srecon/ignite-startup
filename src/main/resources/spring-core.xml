@@ -16,10 +16,10 @@
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <!-- beans -->
     <!--<bean id="helloBean" class="com.blu.ignite.Hello"/>-->
-    <bean id="servicesBean" class="com.blu.ignite.Services">
-        <property name="dao" ref="daoBean"/>
+    <bean id="servicesBean" class="com.blu.ignite.WebServices">
+        <property name="dao" ref="userServicesBean"/>
     </bean>
-    <bean id="daoBean" class="com.blu.ignite.DAO">
+    <bean id="userServicesBean" class="com.blu.ignite.dao.UserServices">
         <property name="userMapper" ref="userMapper"/>
     </bean>
 
@@ -80,11 +80,11 @@
 
 
     <bean id="userMapper" autowire="byName" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.blu.ignite.dao.UserMapper" />
+        <property name="mapperInterface" value="com.blu.ignite.mapper.UserMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.blu.ignite.dao" />
+        <property name="basePackage" value="com.blu.ignite.mapper" />
     </bean>
 
 </beans>
