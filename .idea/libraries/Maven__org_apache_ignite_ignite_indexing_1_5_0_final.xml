@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.ignite:ignite-indexing:1.5.0.final">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/mvnrepo/org/apache/ignite/ignite-indexing/1.5.0.final/ignite-indexing-1.5.0.final.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/mvnrepo/org/apache/ignite/ignite-indexing/1.5.0.final/ignite-indexing-1.5.0.final-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/mvnrepo/org/apache/ignite/ignite-indexing/1.5.0.final/ignite-indexing-1.5.0.final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

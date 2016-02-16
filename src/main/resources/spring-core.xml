@@ -1,0 +1,90 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd ">
+    <!-- Enable annotation-driven caching. -->
+    <cache:annotation-driven/>
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!-- beans -->
+    <!--<bean id="helloBean" class="com.blu.ignite.Hello"/>-->
+    <bean id="servicesBean" class="com.blu.ignite.Services">
+        <property name="dao" ref="daoBean"/>
+    </bean>
+    <bean id="daoBean" class="com.blu.ignite.DAO">
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+
+    <!-- Ignite-->
+    <bean id="cacheManager" class="org.apache.ignite.cache.spring.SpringCacheManager">
+        <property name="configuration" ref="ignite.cfg" />
+
+    </bean>
+
+    <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+        <property name="gridName" value="TestGrid"/>
+        <!-- Enable client mode. -->
+        <property name="clientMode" value="true"/>
+
+        <property name="cacheConfiguration">
+            <list>
+                <!-- Partitioned cache example configuration (Atomic mode). -->
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <!--<property name="atomicityMode" value="ATOMIC"/>-->
+                    <!-- Set cache mode. -->
+                    <property name="cacheMode" value="PARTITIONED"/>
+                    <property name="backups" value="1"/>
+                    <property name="statisticsEnabled" value="true" />
+                </bean>
+            </list>
+        </property>
+        <!-- Explicitly configure TCP discovery SPI to provide list of initial nodes. -->
+        <property name="discoverySpi">
+            <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+                <property name="ipFinder">
+                    <!-- Uncomment static IP finder to enable static-based discovery of initial nodes. -->
+                    <!--<bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">-->
+                    <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
+                        <property name="addresses">
+                            <list>
+                                <!-- In distributed environment, replace with actual host IP address. -->
+                                <!--<value>127.0.0.1:47500..47509</value>-->
+                                <!--<value>192.168.15.153</value>-->
+                                <value>137.134.56.150</value>
+                                <value>137.134.56.152</value>
+                            </list>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath*:com/blu/ignite/dao/*Mapper.xml"/>
+    </bean>
+    <bean id="dataSource" class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
+        <property name="URL" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="connectionCachingEnabled" value="true"/>
+    </bean>
+
+
+    <bean id="userMapper" autowire="byName" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.blu.ignite.dao.UserMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.blu.ignite.dao" />
+    </bean>
+
+</beans>
