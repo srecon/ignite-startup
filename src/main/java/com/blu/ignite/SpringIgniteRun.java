@@ -15,7 +15,6 @@ public class SpringIgniteRun {
         System.out.println("Run Spring example!!");
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-core.xml");
 
-        // test Ignite
         IgniteConfiguration igniteConfiguration = (IgniteConfiguration) ctx.getBean("ignite.cfg");
         Ignite ignite = Ignition.start(igniteConfiguration);
         // get or create cache

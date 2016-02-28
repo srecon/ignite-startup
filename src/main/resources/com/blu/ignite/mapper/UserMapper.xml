@@ -7,6 +7,14 @@
 
     <cache type="org.mybatis.caches.ignite.IgniteCacheAdapter" />
 
+    <select id="getUserObject" parameterType="String" resultType="com.blu.ignite.dto.UserObject" useCache="true">
+        SELECT * FROM all_objects t where t.OBJECT_TYPE='TABLE' and t.object_name=#{objectName}
+    </select>
+
+    <select id="allObjectCount" parameterType="String" resultType="String" useCache="true">
+        SELECT count(*) FROM all_objects
+    </select>
+
     <select id="getUser" parameterType="String" resultType="com.blu.ignite.dto.User" useCache="true">
       SELECT * FROM users WHERE id = #{id}
     </select>

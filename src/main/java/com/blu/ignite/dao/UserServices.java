@@ -1,6 +1,7 @@
 package com.blu.ignite.dao;
 
 import com.blu.ignite.dto.User;
+import com.blu.ignite.dto.UserObject;
 import com.blu.ignite.mapper.UserMapper;
 import org.springframework.cache.annotation.Cacheable;
 
@@ -23,10 +24,16 @@ public class UserServices {
     public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
+    public UserObject getUserObject(String objectName){
+        return userMapper.getUserObject(objectName);
+    }
     public User getUser(String id){
         return userMapper.getUser(id);
     }
     public List<String> getUniqueJobs(){
         return userMapper.getUniqueJob();
+    }
+    public String allObjectCount(){
+        return userMapper.allObjectCount();
     }
 }
